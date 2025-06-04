@@ -4,7 +4,7 @@ import SkipSizePage from './pages/SkipSizePage';
 function App() {
   return (
     <>
-      <Layout>
+      <Layout >
         <SkipSizePage />
       </Layout>
     </>

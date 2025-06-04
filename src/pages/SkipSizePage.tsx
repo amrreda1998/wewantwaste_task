@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { skip_data } from '../data/skip_data';
 import { AlertTriangle, Info } from 'lucide-react';
 
@@ -10,6 +10,13 @@ function SkipSizePage() {
   const [sortBy, setSortBy] = useState<'size' | 'price'>('size');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [showAllowedOnRoadOnly, setShowAllowedOnRoadOnly] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  // Simulate loading (replace with real data fetching if needed)
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 1200); // 1.2s fake load
+    return () => clearTimeout(timer);
+  }, []);
 
   // Sort logic
   const sortedSkips = [...skip_data].sort((a, b) => {
@@ -76,90 +83,92 @@ function SkipSizePage() {
       {/* Card Grid */}
       <main className="flex-1 flex justify-center w-full">
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 w-full max-w-6xl px-2 sm:px-4">
-          {filteredSkips.map((skip) => {
-            const isSelected = selectedId === skip.id;
-            return (
-              <div
-                key={skip.id}
-                onClick={() => setSelectedId(skip.id)}
-                role="button"
-                aria-selected={isSelected}
-                tabIndex={0}
-                className={`relative bg-white rounded-3xl border-2 transition-all duration-200 shadow-xl hover:shadow-2xl overflow-hidden flex flex-col cursor-pointer
+          {loading
+            ? Array.from({ length: 6 }).map((_, i) => <SkipCardSkeleton key={i} />)
+            : filteredSkips.map((skip) => {
+                const isSelected = selectedId === skip.id;
+                return (
+                  <div
+                    key={skip.id}
+                    onClick={() => setSelectedId(skip.id)}
+                    role="button"
+                    aria-selected={isSelected}
+                    tabIndex={0}
+                    className={`relative bg-white rounded-3xl border-2 transition-all duration-200 shadow-xl hover:shadow-2xl overflow-hidden flex flex-col cursor-pointer
                   ${
                     isSelected
                       ? 'border-black ring-4 ring-black/30 scale-105'
                       : 'border-gray-300 hover:border-black hover:scale-102'
                   }
                 `}
-                style={{ minHeight: 340 }}
-              >
-                {/* Image & Size Badge */}
-                <div className="relative">
-                  <img
-                    src={skip.image}
-                    alt={`${skip.size} Yard skip`}
-                    className="w-full h-32 sm:h-56 object-cover"
-                  />
-                  <span className="absolute top-2 left-2 bg-black text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-full shadow">
-                    {skip.size} Yards
-                  </span>
-                  {!skip.allowed_on_road && (
-                    <span className="absolute bottom-2 left-2 flex items-center gap-1 bg-black/90 text-yellow-300 text-xs sm:text-sm font-semibold px-3 py-1 rounded-lg shadow">
-                      <AlertTriangle
-                        size={16}
-                        className="inline-block"
-                        aria-hidden
-                      />
-                      Not Allowed On The Road
-                    </span>
-                  )}
-                  {isSelected && (
-                    <span className="absolute top-2 right-2 bg-black text-white rounded-full px-2 py-1 text-xs font-bold shadow">
-                      ✓
-                    </span>
-                  )}
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setModalSkip(skip);
-                    }}
-                    className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/80 text-white rounded-full px-3 py-2 hover:bg-black transition text-xs sm:text-sm font-semibold shadow"
-                    title="More Info"
+                    style={{ minHeight: 340 }}
                   >
-                    <Info size={18} />
-                    <span className="hidden sm:inline">More Info</span>
-                  </button>
-                </div>
-                {/* Card Content */}
-                <div className="flex-1 flex flex-col p-4 sm:p-6">
-                  <h2 className="text-lg sm:text-2xl font-bold mb-2 text-black">
-                    {skip.size} Yard Skip
-                  </h2>
-                  <p className="text-gray-700 mb-1 text-xs sm:text-base">
-                    {skip.hire_period_days} day hire period
-                  </p>
-                  <p className="text-black text-lg sm:text-2xl font-bold mb-4">
-                    £{skip.price_before_vat}
-                  </p>
-                  <button
-                    className={`mt-auto w-full py-2 sm:py-3 rounded-lg font-semibold transition pointer-events-none
+                    {/* Image & Size Badge */}
+                    <div className="relative">
+                      <img
+                        src={skip.image}
+                        alt={`${skip.size} Yard skip`}
+                        className="w-full h-32 sm:h-56 object-cover"
+                      />
+                      <span className="absolute top-2 left-2 bg-black text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-full shadow">
+                        {skip.size} Yards
+                      </span>
+                      {!skip.allowed_on_road && (
+                        <span className="absolute bottom-2 left-2 flex items-center gap-1 bg-black/90 text-yellow-300 text-xs sm:text-sm font-semibold px-3 py-1 rounded-lg shadow">
+                          <AlertTriangle
+                            size={16}
+                            className="inline-block"
+                            aria-hidden
+                          />
+                          Not Allowed On The Road
+                        </span>
+                      )}
+                      {isSelected && (
+                        <span className="absolute top-2 right-2 bg-black text-white rounded-full px-2 py-1 text-xs font-bold shadow">
+                          ✓
+                        </span>
+                      )}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setModalSkip(skip);
+                        }}
+                        className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/80 text-white rounded-full px-3 py-2 hover:bg-black transition text-xs sm:text-sm font-semibold shadow"
+                        title="More Info"
+                      >
+                        <Info size={18} />
+                        <span className="hidden sm:inline">More Info</span>
+                      </button>
+                    </div>
+                    {/* Card Content */}
+                    <div className="flex-1 flex flex-col p-4 sm:p-6">
+                      <h2 className="text-lg sm:text-2xl font-bold mb-2 text-black">
+                        {skip.size} Yard Skip
+                      </h2>
+                      <p className="text-gray-700 mb-1 text-xs sm:text-base">
+                        {skip.hire_period_days} day hire period
+                      </p>
+                      <p className="text-black text-lg sm:text-2xl font-bold mb-4">
+                        £{skip.price_before_vat}
+                      </p>
+                      <button
+                        className={`mt-auto w-full py-2 sm:py-3 rounded-lg font-semibold transition pointer-events-none
                       ${
                         isSelected
                           ? 'bg-black text-white'
                           : 'bg-gray-200 text-black'
                       }
                     `}
-                    tabIndex={-1}
-                    aria-hidden
-                  >
-                    {isSelected ? 'Selected' : 'Select This Skip'}
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+                        tabIndex={-1}
+                        aria-hidden
+                      >
+                        {isSelected ? 'Selected' : 'Select This Skip'}
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
         </div>
       </main>
 
@@ -232,6 +241,20 @@ function SkipSizePage() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function SkipCardSkeleton() {
+  return (
+    <div className="relative bg-white rounded-3xl border-2 border-gray-200 shadow-xl overflow-hidden flex flex-col animate-pulse">
+      <div className="w-full h-32 sm:h-56 bg-gray-200" />
+      <div className="flex-1 flex flex-col p-4 sm:p-6">
+        <div className="h-6 bg-gray-200 rounded w-2/3 mb-3" />
+        <div className="h-4 bg-gray-200 rounded w-1/3 mb-2" />
+        <div className="h-8 bg-gray-200 rounded w-1/2 mb-4" />
+        <div className="h-10 bg-gray-200 rounded w-full mt-auto" />
+      </div>
     </div>
   );
 }
