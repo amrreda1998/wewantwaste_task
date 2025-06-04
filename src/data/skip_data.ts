@@ -14,7 +14,7 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:52.813',
     allowed_on_road: true,
     allows_heavy_waste: true,
-    image: 'src/assets/skip_images/4-yarder-skip.jpg',
+    image: "src/assets/skip_images/4-yarder-skip.jpg",
   },
   {
     id: 17934,
