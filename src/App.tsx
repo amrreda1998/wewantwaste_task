@@ -1,7 +1,12 @@
+import Layout from './components/Layout';
+import SkipSizePage from './pages/SkipSizePage';
+
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <Layout>
+        <SkipSizePage />
+      </Layout>
     </>
   );
 }
