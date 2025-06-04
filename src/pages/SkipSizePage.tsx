@@ -144,7 +144,16 @@ function SkipSizePage() {
       </main>
 
       {/* Footer Navigation */}
-      <footer className="w-full max-w-6xl mx-auto px-2 sm:px-4 py-4 flex flex-col sm:flex-row gap-2 sm:gap-4 justify-between items-stretch sm:items-center">
+      <footer
+        className="
+          bg-white border-t border-gray-200
+          fixed bottom-0 left-0 w-full z-40
+          sm:static sm:bg-transparent sm:border-0
+          px-2 sm:px-4 py-4 flex flex-col sm:flex-row gap-2 sm:gap-4
+          justify-between items-stretch sm:items-center
+          transition
+        "
+      >
         <button className="bg-gray-200 text-black px-4 py-2 rounded-lg hover:bg-gray-300 font-semibold w-full sm:w-auto border border-gray-300">
           Back
         </button>

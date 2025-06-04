@@ -56,10 +56,20 @@ function Stepper() {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 text-black flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 text-black flex flex-col overflow-x-hidden">
       <Stepper />
-      <div className="h-1 w-full bg-gray-200">
-        <div className="h-1 bg-black transition-all" style={{ width: '50%' }} />
+      {/* Progress Step Label */}
+      <div className="w-full flex justify-center mb-1">
+        <span className="text-xs font-semibold text-gray-600">Step 3 of 6</span>
+      </div>
+      {/* Progress Bar */}
+      <div className="w-full">
+        <div className="h-2 bg-gray-300 rounded">
+          <div
+            className="h-2 bg-black rounded transition-all"
+            style={{ width: '50%' }} // dynamic width
+          />
+        </div>
       </div>
       <main className="flex-1 flex flex-col">{children}</main>
     </div>
