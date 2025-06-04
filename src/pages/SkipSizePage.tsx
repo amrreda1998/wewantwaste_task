@@ -46,7 +46,7 @@ function SkipSizePage() {
       </header>
 
       {/* Sort Controls */}
-      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-stretch sm:items-center justify-center mb-4 px-2 w-full max-w-2xl mx-auto">
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-stretch sm:items-center justify-center mb-4 p-5 w-full max-w-2xl mx-auto">
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value as 'size' | 'price')}
@@ -134,7 +134,7 @@ function SkipSizePage() {
                           e.stopPropagation();
                           setModalSkip(skip);
                         }}
-                        className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/80 text-white rounded-full px-3 py-2 hover:bg-black transition text-xs sm:text-sm font-semibold shadow"
+                        className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/80 text-white rounded-full px-3 py-1 hover:bg-black transition text-xs sm:text-sm font-semibold shadow"
                         title="More Info"
                       >
                         <Info size={18} />
@@ -178,7 +178,7 @@ function SkipSizePage() {
           bg-white border-t border-gray-200
           fixed bottom-0 left-0 w-full z-40
           sm:static sm:bg-transparent sm:border-0
-          px-2 sm:px-4 py-4 flex flex-col sm:flex-row gap-2 sm:gap-4
+          p-6 sm:px-4 py-6 flex flex-col sm:flex-row gap-2 sm:gap-4
           justify-between items-stretch sm:items-center
           transition
         "
@@ -187,7 +187,7 @@ function SkipSizePage() {
           Back
         </button>
         <button
-          className="bg-black text-white px-6 py-2 rounded-lg font-bold hover:bg-gray-900 disabled:opacity-50 w-full sm:w-auto"
+          className="bg-black text-white px-4 py-2 rounded-lg font-bold hover:bg-gray-900 disabled:opacity-50 w-full sm:w-auto"
           disabled={selectedId === null}
         >
           Continue
