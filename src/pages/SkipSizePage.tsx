@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { skip_data } from '../data/skip_data';
+import { AlertTriangle } from 'lucide-react';
 
 function SkipSizePage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
@@ -18,7 +19,7 @@ function SkipSizePage() {
   });
 
   return (
-    <div className="flex flex-col flex-1">
+    <div className="flex flex-col flex-1 px-6 sm:px-20">
       {/* Header */}
       <header className="py-6 sm:py-8">
         <h1 className="text-2xl sm:text-4xl font-extrabold text-center mb-2 text-white">
@@ -57,7 +58,8 @@ function SkipSizePage() {
             return (
               <div
                 key={skip.id}
-                className={`relative bg-neutral-800 rounded-2xl border-2 transition-all duration-200 shadow-lg overflow-hidden flex flex-col
+                onClick={() => setSelectedId(skip.id)}
+                className={`relative bg-neutral-800 rounded-2xl border-2 transition-all duration-200 shadow-lg overflow-hidden flex flex-col cursor-pointer
                   ${
                     isSelected
                       ? 'border-primary ring-4 ring-primary/20'
@@ -75,6 +77,16 @@ function SkipSizePage() {
                   <span className="absolute top-2 left-2 bg-primary text-white text-xs sm:text-sm font-bold px-3 py-1 rounded-full shadow">
                     {skip.size} Yards
                   </span>
+                  {!skip.allowed_on_road && (
+                    <span className="absolute bottom-2 left-2 flex items-center gap-1 bg-black/90 text-yellow-400 text-xs sm:text-sm font-semibold px-3 py-1 rounded-lg shadow">
+                      <AlertTriangle
+                        size={16}
+                        className="inline-block"
+                        aria-hidden
+                      />
+                      Not Allowed On The Road
+                    </span>
+                  )}
                 </div>
                 {/* Card Content */}
                 <div className="flex-1 flex flex-col p-3 sm:p-6">
@@ -88,15 +100,15 @@ function SkipSizePage() {
                     £{skip.price_before_vat}
                   </p>
                   <button
-                    className={`mt-auto w-full py-2 sm:py-3 rounded-lg font-semibold transition
+                    className={`mt-auto w-full py-2 sm:py-3 rounded-lg font-semibold transition pointer-events-none
                       ${
                         isSelected
-                          ? 'bg-primary text-white cursor-default'
-                          : 'bg-neutral-700 text-white hover:bg-primary hover:text-white'
+                          ? 'bg-primary text-white'
+                          : 'bg-neutral-700 text-white'
                       }
                     `}
-                    disabled={isSelected}
-                    onClick={() => setSelectedId(skip.id)}
+                    tabIndex={-1}
+                    aria-hidden
                   >
                     {isSelected ? 'Selected' : 'Select This Skip'}
                   </button>
