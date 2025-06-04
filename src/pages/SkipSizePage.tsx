@@ -3,6 +3,19 @@ import { skip_data } from '../data/skip_data';
 
 function SkipSizePage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [sortBy, setSortBy] = useState<'size' | 'price'>('size');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+
+  // Sort logic
+  const sortedSkips = [...skip_data].sort((a, b) => {
+    const aValue = sortBy === 'size' ? a.size : a.price_before_vat;
+    const bValue = sortBy === 'size' ? b.size : b.price_before_vat;
+    if (sortOrder === 'asc') {
+      return aValue - bValue;
+    } else {
+      return bValue - aValue;
+    }
+  });
 
   return (
     <div className="flex flex-col flex-1">
@@ -16,10 +29,30 @@ function SkipSizePage() {
         </p>
       </header>
 
+      {/* Sort Controls */}
+      <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 items-stretch sm:items-center justify-center mb-4 px-2 w-full max-w-2xl mx-auto">
+        <select
+          value={sortBy}
+          onChange={(e) => setSortBy(e.target.value as 'size' | 'price')}
+          className="w-full sm:w-40 px-3 py-2 rounded-lg bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary transition"
+        >
+          <option value="size">Sort by Size</option>
+          <option value="price">Sort by Price</option>
+        </select>
+        <select
+          value={sortOrder}
+          onChange={(e) => setSortOrder(e.target.value as 'asc' | 'desc')}
+          className="w-full sm:w-32 px-3 py-2 rounded-lg bg-neutral-800 text-white border border-neutral-700 focus:outline-none focus:ring-2 focus:ring-primary transition"
+        >
+          <option value="asc">Asc</option>
+          <option value="desc">Desc</option>
+        </select>
+      </div>
+
       {/* Card Grid */}
       <main className="flex-1 flex justify-center w-full">
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 w-full max-w-6xl px-2 sm:px-4">
-          {skip_data.map((skip) => {
+          {sortedSkips.map((skip) => {
             const isSelected = selectedId === skip.id;
             return (
               <div
