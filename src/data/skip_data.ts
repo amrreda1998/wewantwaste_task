@@ -14,7 +14,8 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:52.813',
     allowed_on_road: true,
     allows_heavy_waste: true,
-    image: "src/assets/skip_images/4-yarder-skip.jpg",
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020534/weWantWasteimgs/p6c2dnneytvuci7wgxr2.jpg',
   },
   {
     id: 17934,
@@ -31,7 +32,8 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:52.992',
     allowed_on_road: true,
     allows_heavy_waste: true,
-    image: 'src/assets/skip_images/6-yarder-skip.jpg',
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020534/weWantWasteimgs/c1jrkujxwzt4gyd6lc5r.jpg',
   },
   {
     id: 17935,
@@ -48,7 +50,8 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:53.171',
     allowed_on_road: true,
     allows_heavy_waste: true,
-    image: 'src/assets/skip_images/8-yarder-skip.jpg',
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020533/weWantWasteimgs/szu0fuakahvpkgrynk1w.jpg',
   },
   {
     id: 17936,
@@ -65,7 +68,8 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:53.339',
     allowed_on_road: false,
     allows_heavy_waste: false,
-    image: 'src/assets/skip_images/10-yarder-skip.jpg',
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020533/weWantWasteimgs/szu0fuakahvpkgrynk1w.jpg',
   },
   {
     id: 17937,
@@ -82,7 +86,8 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:53.516',
     allowed_on_road: false,
     allows_heavy_waste: false,
-    image: 'src/assets/skip_images/12-yarder-skip.jpg',
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020533/weWantWasteimgs/szu0fuakahvpkgrynk1w.jpg',
   },
   {
     id: 17938,
@@ -99,7 +104,8 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:53.69',
     allowed_on_road: false,
     allows_heavy_waste: false,
-    image: 'src/assets/skip_images/14-yarder-skip.jpg',
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020533/weWantWasteimgs/zqjftfeeulg6uzxxtve3.jpg',
   },
   {
     id: 17939,
@@ -116,7 +122,8 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:53.876',
     allowed_on_road: false,
     allows_heavy_waste: false,
-    image: 'src/assets/skip_images/16-yarder-skip.jpg',
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020534/weWantWasteimgs/xyn4tau6rce5rdyeqfom.jpg',
   },
   {
     id: 15124,
@@ -133,7 +140,8 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:52.434',
     allowed_on_road: false,
     allows_heavy_waste: true,
-    image: 'src/assets/skip_images/20-yarder-skip.jpg',
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020534/weWantWasteimgs/uob5sqnwb96znqmfr7qh.jpg',
   },
   {
     id: 15125,
@@ -150,6 +158,7 @@ export const skip_data = [
     updated_at: '2025-04-07T13:16:52.603',
     allowed_on_road: false,
     allows_heavy_waste: false,
-    image: 'src/assets/skip_images/40-yarder-skip.jpg',
+    image:
+      'https://res.cloudinary.com/dm5732ysk/image/upload/v1749020535/weWantWasteimgs/jbgkjzszjscgqzw61a9m.jpg',
   },
 ];
