@@ -9,6 +9,7 @@ function SkipSizePage() {
   );
   const [sortBy, setSortBy] = useState<'size' | 'price'>('size');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
+  const [showAllowedOnRoadOnly, setShowAllowedOnRoadOnly] = useState(false);
 
   // Sort logic
   const sortedSkips = [...skip_data].sort((a, b) => {
@@ -20,6 +21,10 @@ function SkipSizePage() {
       return bValue - aValue;
     }
   });
+
+  const filteredSkips = showAllowedOnRoadOnly
+    ? sortedSkips.filter((skip) => skip.allowed_on_road)
+    : sortedSkips;
 
   return (
     <div className="flex flex-col flex-1 min-h-screen p-2 sm:p-6 bg-gradient-to-br from-gray-100 via-white to-gray-200">
@@ -51,12 +56,27 @@ function SkipSizePage() {
           <option value="asc">Asc</option>
           <option value="desc">Desc</option>
         </select>
+        <div className="flex items-center gap-2">
+          <input
+            id="allowedOnRoad"
+            type="checkbox"
+            checked={showAllowedOnRoadOnly}
+            onChange={(e) => setShowAllowedOnRoadOnly(e.target.checked)}
+            className="w-4 h-4 text-black border-gray-300 rounded focus:ring-2 focus:ring-black transition"
+          />
+          <label
+            htmlFor="allowedOnRoad"
+            className="text-gray-700 text-sm sm:text-base"
+          >
+            Show allowed on road only
+          </label>
+        </div>
       </div>
 
       {/* Card Grid */}
       <main className="flex-1 flex justify-center w-full">
         <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 w-full max-w-6xl px-2 sm:px-4">
-          {sortedSkips.map((skip) => {
+          {filteredSkips.map((skip) => {
             const isSelected = selectedId === skip.id;
             return (
               <div
