@@ -19,25 +19,33 @@ function Stepper() {
   ];
 
   return (
-    <nav className="flex items-center justify-center gap-2 sm:gap-4 py-4 sm:py-6 bg-neutral-900 overflow-x-auto px-2">
+    <nav className="flex items-center justify-center gap-0 sm:gap-2 py-4 sm:py-6 bg-white border-b border-gray-200 overflow-x-auto px-2">
       {steps.map((step, idx) => {
         const Icon = step.icon;
+        const isActive = step.active;
         return (
           <div key={step.label} className="flex items-center flex-shrink-0">
-            <span
-              className={`flex items-center gap-1 sm:gap-2 ${
-                step.active ? 'text-primary font-semibold' : 'text-neutral-400'
-              } text-sm sm:text-base`}
+            <div
+              className={`flex items-center justify-center rounded-full border-2 transition-all duration-200
+                ${
+                  isActive
+                    ? 'bg-black border-black text-white'
+                    : 'bg-gray-200 border-gray-300 text-gray-400'
+                }
+                w-9 h-9 sm:w-11 sm:h-11 shadow
+              `}
             >
-              <Icon size={18} strokeWidth={2.2} className="sm:w-6 sm:h-6" />
-              <span className="whitespace-nowrap">{step.label}</span>
+              <Icon size={20} className="sm:w-6 sm:h-6" />
+            </div>
+            <span
+              className={`ml-2 mr-4 text-xs sm:text-sm font-semibold ${
+                isActive ? 'text-black' : 'text-gray-400'
+              }`}
+            >
+              {step.label}
             </span>
             {idx < steps.length - 1 && (
-              <span
-                className={`mx-2 sm:mx-4 w-6 sm:w-12 h-px ${
-                  step.active ? 'bg-primary' : 'bg-neutral-700'
-                }`}
-              ></span>
+              <span className="w-6 sm:w-10 h-1 bg-gray-200 rounded-full mx-1 sm:mx-2"></span>
             )}
           </div>
         );
@@ -48,7 +56,7 @@ function Stepper() {
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen bg-neutral-900 text-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 text-black flex flex-col">
       <Stepper />
       <main className="flex-1 flex flex-col">{children}</main>
     </div>
