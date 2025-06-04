@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { skip_data } from '../data/skip_data';
-import { AlertTriangle } from 'lucide-react';
+import { AlertTriangle, Info } from 'lucide-react';
 
 function SkipSizePage() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
+  const [modalSkip, setModalSkip] = useState<(typeof skip_data)[0] | null>(
+    null
+  );
   const [sortBy, setSortBy] = useState<'size' | 'price'>('size');
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
@@ -59,13 +62,17 @@ function SkipSizePage() {
               <div
                 key={skip.id}
                 onClick={() => setSelectedId(skip.id)}
-                className={`relative bg-white rounded-3xl border-2 transition-all duration-200 shadow-xl overflow-hidden flex flex-col cursor-pointer
+                role="button"
+                aria-selected={isSelected}
+                tabIndex={0}
+                className={`relative bg-white rounded-3xl border-2 transition-all duration-200 shadow-xl hover:shadow-2xl overflow-hidden flex flex-col cursor-pointer
                   ${
                     isSelected
-                      ? 'border-black ring-4 ring-black/20'
-                      : 'border-gray-300 hover:border-black'
+                      ? 'border-black ring-4 ring-black/30 scale-105'
+                      : 'border-gray-300 hover:border-black hover:scale-102'
                   }
                 `}
+                style={{ minHeight: 340 }}
               >
                 {/* Image & Size Badge */}
                 <div className="relative">
@@ -87,9 +94,26 @@ function SkipSizePage() {
                       Not Allowed On The Road
                     </span>
                   )}
+                  {isSelected && (
+                    <span className="absolute top-2 right-2 bg-black text-white rounded-full px-2 py-1 text-xs font-bold shadow">
+                      ✓
+                    </span>
+                  )}
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setModalSkip(skip);
+                    }}
+                    className="absolute bottom-2 right-2 flex items-center gap-1 bg-black/80 text-white rounded-full px-3 py-2 hover:bg-black transition text-xs sm:text-sm font-semibold shadow"
+                    title="More Info"
+                  >
+                    <Info size={18} />
+                    <span className="hidden sm:inline">More Info</span>
+                  </button>
                 </div>
                 {/* Card Content */}
-                <div className="flex-1 flex flex-col p-3 sm:p-6">
+                <div className="flex-1 flex flex-col p-4 sm:p-6">
                   <h2 className="text-lg sm:text-2xl font-bold mb-2 text-black">
                     {skip.size} Yard Skip
                   </h2>
@@ -131,6 +155,54 @@ function SkipSizePage() {
           Continue
         </button>
       </footer>
+
+      {/* Modal for Skip Details */}
+      {modalSkip && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative">
+            <button
+              className="absolute top-3 right-3 text-gray-400 hover:text-black text-2xl"
+              onClick={() => setModalSkip(null)}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <div className="flex flex-col items-center">
+              <img
+                src={modalSkip.image}
+                alt={`${modalSkip.size} Yard skip`}
+                className="w-40 h-28 object-cover rounded-xl mb-4"
+              />
+              <h2 className="text-2xl font-bold mb-2 text-black">
+                {modalSkip.size} Yard Skip
+              </h2>
+              <p className="text-gray-700 mb-2">
+                {modalSkip.hire_period_days} day hire period
+              </p>
+              <p className="text-black text-xl font-bold mb-2">
+                £{modalSkip.price_before_vat}
+              </p>
+              <ul className="text-sm text-gray-700 mb-2">
+                <li>
+                  <span className="font-semibold">Allowed on road:</span>{' '}
+                  {modalSkip.allowed_on_road ? 'Yes' : 'No'}
+                </li>
+                <li>
+                  <span className="font-semibold">Allows heavy waste:</span>{' '}
+                  {modalSkip.allows_heavy_waste ? 'Yes' : 'No'}
+                </li>
+                {/* Add more details as needed */}
+              </ul>
+              {!modalSkip.allowed_on_road && (
+                <div className="flex items-center gap-2 bg-black/90 text-yellow-300 text-xs font-semibold px-3 py-1 rounded-lg shadow mt-2">
+                  <AlertTriangle size={16} aria-hidden />
+                  Not Allowed On The Road
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

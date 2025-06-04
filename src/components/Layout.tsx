@@ -58,6 +58,9 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-white to-gray-200 text-black flex flex-col">
       <Stepper />
+      <div className="h-1 w-full bg-gray-200">
+        <div className="h-1 bg-black transition-all" style={{ width: '50%' }} />
+      </div>
       <main className="flex-1 flex flex-col">{children}</main>
     </div>
   );
